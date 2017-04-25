@@ -1,0 +1,28 @@
+{
+  "name": "footinch",
+  "version": "0.0.1",
+  "description": "A minimalistic parser for imperial lengths - feet and inch. Does metric too.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dobriai/footinch.git"
+  },
+  "keywords": [
+    "imperial",
+    "length",
+    "foot",
+    "feet",
+    "inch",
+    "SI",
+    "units"
+  ],
+  "author": "Ivan Dobrianov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dobriai/footinch/issues"
+  },
+  "homepage": "https://github.com/dobriai/footinch#readme"
+}

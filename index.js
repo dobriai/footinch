@@ -10,7 +10,7 @@ const s_siPrefix = {
 
 const METERS_PER_FOOT = 0.3048;
 
-function parseLength(strIn)
+module.exports.parse = function (strIn)
 {
   if (!strIn || typeof strIn !== 'string' ) {
     return NaN;
@@ -86,11 +86,4 @@ function parseLength(strIn)
   }
 
   return NaN;
-}
-
-// Do some testing:
-while (true) {
-  let str = '1 7/8';
-  let num = parseLength(str);
-  console.log(str + " = " + num);
 }
