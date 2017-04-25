@@ -4,7 +4,7 @@
   "description": "A minimalistic parser for imperial lengths - feet and inch. Does metric too.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,9 @@
   "bugs": {
     "url": "https://github.com/dobriai/footinch/issues"
   },
-  "homepage": "https://github.com/dobriai/footinch#readme"
+  "homepage": "https://github.com/dobriai/footinch#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0"
+  }
 }
