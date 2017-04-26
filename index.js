@@ -9,6 +9,7 @@ const s_siPrefix = {
 };
 
 const METERS_PER_FOOT = 0.3048;
+module.exports.METERS_PER_FOOT = METERS_PER_FOOT;
 
 module.exports.parse = function (strIn)
 {
@@ -30,16 +31,23 @@ module.exports.parse = function (strIn)
   }
 
   // Try +-: 5, 1.2e7, .1e+2, 3e-1, 3.e1
-  let first = str.match(/^[+-]?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?/i);
-  if (!first) {
-    return NaN;
+  let firstFloat = NaN;
+  {
+    let lm = str.match(/^[+-]? *(?:\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?/i);
+    if (!lm) {
+      return NaN;
+    }
+    firstFloat = parseFloat(lm[0].replace(/ */g, ''));  // Clear spaces on the way
+    str = str.slice(lm[0].length);   // Don't trim just yet!
   }
-  let firstFloat = parseFloat(first[0]);
 
-  str = str.slice(first[0].length);   // Don't trim just yet!
-
-  if (str.length == 0) {
+  if (str.length == 0 || isNaN(firstFloat)) {
     return firstFloat;
+  }
+
+  let sgn = Math.sign(firstFloat);
+  if (sgn === 0) {
+    sgn = 1;
   }
 
   // If inches, then end of story
@@ -50,7 +58,7 @@ module.exports.parse = function (strIn)
     let lm = str.match(/^ +(\d+)\/(\d+)\" *$/i);
     if (lm) {
       // If original input was: 7 11/16"
-      return (firstFloat + parseFloat(lm[1]) / parseFloat(lm[2])) / 12.0;
+      return (firstFloat + sgn * parseFloat(lm[1]) / parseFloat(lm[2])) / 12.0;
     }
   }
   // Try explicit units
@@ -63,25 +71,33 @@ module.exports.parse = function (strIn)
 
   // Should be feet now
   {
-    let lm = str.match(/^(\'|-| +-?| *ft) */i);
+    let lm = str.match(/^(?:\'| *ft|-| +-?) */i);   // Order matters here!
     if (!lm) {
       return NaN;
     }
     str = str.slice(lm[0].length).trim();
-  }
-  if (str.length == 0) {
-    return firstFloat;
+    if (str.length == 0) {
+      if (lm[0].match(/-/)) {
+        return NaN; // Trailing dash - e.g. strIn was: 7-
+      }
+      return firstFloat;
+    }
   }
 
   // Now we can only have left: 2, 7/8, 2 7/8, with an optional " at the end
   {
-    let lm = str.match(/^(\d+)\/(\d+)\"? *$/);
-    if (lm) {
-      return firstFloat + (parseFloat(lm[1]) / parseFloat(lm[2])) / 12.0 ;
+    let lm;
+    if (lm = str.match(/^(\d+)(\"| *in)? *$/))
+    {
+      return firstFloat + sgn * parseFloat(lm[1]) / 12.0 ;
     }
-    lm = str.match(/^(\d+) +(\d+)\/(\d+)\"? *$/);
+    lm = str.match(/^(\d+)\/(\d+)(\"| *in)? *$/);
     if (lm) {
-      return firstFloat + (parseFloat(lm[1]) + parseFloat(lm[2]) / parseFloat(lm[3])) / 12.0 ;
+      return firstFloat + sgn * (parseFloat(lm[1]) / parseFloat(lm[2])) / 12.0 ;
+    }
+    lm = str.match(/^(\d+) +(\d+)\/(\d+)(\"| *in)? *$/);
+    if (lm) {
+      return firstFloat + sgn * (parseFloat(lm[1]) + parseFloat(lm[2]) / parseFloat(lm[3])) / 12.0 ;
     }
   }
 
