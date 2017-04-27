@@ -11,7 +11,8 @@ const s_siPrefix = {
 const METERS_PER_FOOT = 0.3048;
 module.exports.METERS_PER_FOOT = METERS_PER_FOOT;
 
-module.exports.parse = function (strIn)
+// ---------------------------------------------------------
+function _parse(strIn)
 {
   if (!strIn || typeof strIn !== 'string' ) {
     return NaN;
@@ -65,7 +66,8 @@ module.exports.parse = function (strIn)
   {
     let lm = str.match(/^ *(m|cm|mm|um|nm|pm|km) *$/i);
     if (lm) {
-      return firstFloat * s_siPrefix[lm[1]] / METERS_PER_FOOT;
+      // Return an array to signal that the output is in METERS:
+      return [firstFloat * s_siPrefix[lm[1]], true];
     }
   }
 
@@ -103,3 +105,29 @@ module.exports.parse = function (strIn)
 
   return NaN;
 }
+
+// We are trying to avoid unnecessary round-trip conversions like meters->feet->meters,
+// in order to avoid machine epsilon noise, e.g. 1m parsing as 0.99999999999
+
+// Return length in FEET:
+module.exports.parseF = function (strIn) {
+  // let [num, inMeters] = _parse(strIn); --- This line crashes for some reason ... WHY???
+  //                                      --- TypeError: _parse is not a function
+  // if (inMeters === undefined) {
+  //   return num;
+  // }
+  let num = _parse(strIn);
+  if (typeof num === 'number') {
+    return num;
+  }
+  return num[0] /  METERS_PER_FOOT;
+};
+
+// Return length in METERS:
+module.exports.parseM = function (strIn) {
+  let num = _parse(strIn);
+  if (typeof num === 'number') {
+    return num * METERS_PER_FOOT;
+  }
+  return num[0];
+};
