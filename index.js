@@ -110,7 +110,7 @@ function _parse(strIn)
 // in order to avoid machine epsilon noise, e.g. 1m parsing as 0.99999999999
 
 // Return length in FEET:
-module.exports.parseF = function (strIn) {
+function _parseF(strIn) {
   // let [num, inMeters] = _parse(strIn); --- This line crashes for some reason ... WHY???
   //                                      --- TypeError: _parse is not a function
   // if (inMeters === undefined) {
@@ -124,10 +124,17 @@ module.exports.parseF = function (strIn) {
 };
 
 // Return length in METERS:
-module.exports.parseM = function (strIn) {
+function _parseM(strIn) {
   let num = _parse(strIn);
   if (typeof num === 'number') {
     return num * METERS_PER_FOOT;
   }
   return num[0];
 };
+
+module.exports.parse = {
+  F         : _parseF,
+  FEET      : _parseF,
+  M         : _parseM,
+  METERS    : _parseM,
+}

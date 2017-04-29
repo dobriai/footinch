@@ -38,9 +38,9 @@ const fmArr = ['F', 'M'];
 for (let ii in fmArr) {
   const ltr = fmArr[ii];
   const cases = allCases['cases'+ltr];
-  const parseFn = footinch['parse'+ltr];
+  const parseFn = footinch.parse[ltr];
 
-  describe('#parse'+ltr, function() {
+  describe('#parse.'+ltr, function() {
     Object.keys(cases).forEach(function(key) {
       let data = cases[key];
       it(key + ' --> ' + data, function() {
