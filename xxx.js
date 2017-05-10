@@ -8,7 +8,7 @@ if (false) { // Target samples
   fmt(17.2);
 }
 
-let xx = {a:12};
+let qq = {a:12};
 Object.defineProperty(xx, 'M', {
   get: function() { this.meters = true; return this; },
   enumerable: true,
@@ -44,31 +44,39 @@ function _fmtToFT(base) {
       IN    : { get : function() { return _fmtToFT_IN(base); } }
     }),
     {
-      DEC   : function(digits) { return _fmtToFT_DEC(base, digits); }
+      DEC   : function(digits, sfx=' ft') { return _fmtToFT_DEC(base, digits, sfx); }
     }
   );
 }
+function _sfxFTIN(sfx) {
+  if (Array.isArray(sfx) && sfx.length == 2) {
+    return sfx;
+  }
+  return ["' ", '"'];
+}
 function _fmtToFT_IN(base) {
   return {
-    DEC     : function(digits) { return _fmtToFT_IN_DEC(base, digits); },
-    FRAC    : function(denom) { return _fmtToFT_IN_FRAC(base, denom); }
+    DEC     : function(digits, sfx=_sfxFTIN()) { return _fmtToFT_IN_DEC(base, digits, sfx); },
+    FRAC    : function(denom, sfx=_sfxFTIN()) { return _fmtToFT_IN_FRAC(base, denom, sfx); }
   };
 }
-function _fmtToFT_DEC(base, digits) {
+function _fmtToFT_DEC(base, digits, sfx) {
   return function (valueIn) {
     const val =  valueIn * (base / METERS_PER_FOOT);
-    return val.toFixed(digits) + " ft";
+    return val.toFixed(digits) + sfx;
   };
 }
-function _fmtToFT_IN_DEC(base, digits) {
+function _fmtToFT_IN_DEC(base, digits, sfx) {
+  sfx = _sfxFTIN(sfx);
   return function (valueIn) {
     const val =  valueIn * (base / METERS_PER_FOOT);
     const feet = Math.trunc(val);
     const inches = 12 * (val - feet);
-    return feet + "' " + Math.abs(inches.toFixed(digits)) + '"';
+    return feet + sfx[0] + Math.abs(inches.toFixed(digits)) + sfx[1];
   };
 }
-function _fmtToFT_IN_FRAC(base, denom) {
+function _fmtToFT_IN_FRAC(base, denom, sfx) {
+  sfx = _sfxFTIN(sfx);
   if (!denom || !isFinite(denom) || denom < 1) {
     denom = 16;
   }
@@ -79,13 +87,13 @@ function _fmtToFT_IN_FRAC(base, denom) {
     const wholeInches = Math.trunc(inches);
     let numerator = Math.round(denom * (inches - wholeInches));
     if (numerator === 0) {
-      return feet + "' " + Math.abs(wholeInches) + '"';
+      return feet + sfx[0] + Math.abs(wholeInches) + sfx[1];
     }
     while (numerator % 2 === 0 && denom % 2 === 0) {
       numerator /= 2;
       denom /= 2;
     }
-    return feet + '\' ' + Math.abs(wholeInches) + ' ' + Math.abs(numerator) + '/' + denom + '\"';
+    return feet + sfx[0] + Math.abs(wholeInches) + ' ' + Math.abs(numerator) + '/' + denom + sfx[1];
   };
 }
 
