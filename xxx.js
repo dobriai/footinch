@@ -1,19 +1,11 @@
 if (false) { // Target samples
-  format(len).M.as.FT.IN.FRAC(16);
-  format(len).M.as.FT.IN.DEC(3);
-  format(len).M.as.FT(3);
-  format(len).M.as.KM(3);
-
-  let fmt = format.M.to.FT.IN.FRAC(16);
-  fmt(17.2);
+  let qq = { a: 12 };
+  Object.defineProperty(xx, 'M', {
+    get: function () { this.meters = true; return this; },
+    enumerable: true,
+    configurable: true
+  });
 }
-
-let qq = {a:12};
-Object.defineProperty(xx, 'M', {
-  get: function() { this.meters = true; return this; },
-  enumerable: true,
-  configurable: true
-});
 // ------------------------------------------------------
 const METERS_PER_FOOT = 0.3048;
 
