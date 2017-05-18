@@ -1,6 +1,6 @@
 {
   "name": "footinch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A minimalistic parser for imperial lengths - feet and inch. Does metric too.",
   "main": "index.js",
   "scripts": {
