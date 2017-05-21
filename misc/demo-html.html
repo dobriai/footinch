@@ -1,0 +1,94 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FootInch Test Page</title>
+  <meta name="description" content="Test footinch node.js package.">
+  <!-- <meta name="author" content=""> -->
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+  <script src="../lib/parse.js"></script>
+  <script src="../lib/format.js"></script>
+  <style>
+  .flex-container {
+    display: flex;
+  }
+  .flex-col {
+    width: 100%;
+    margin: 10px;
+  }
+  .txt-disabled {
+    background-color: LightGray;
+  }
+  textarea {
+    resize: none;
+    height: 30em;
+    width: 100%;
+    margin: 0px;
+  }
+  </style>
+</head>
+
+<body>
+  <h1>Footinch Demo</h1>
+
+  This is a simple test/demo of how to use the <tt>footinch</tt> package in a web
+  page. Type or paste some values in the left-most text area and press the
+  <em>Parse</em> button at the bottom to see the results.
+
+  <div class="flex-container">
+    <div class="flex-col">
+      Your input:
+      <textarea id="toParse">
+10
+garbage
+12' 3"
+100cm
+2m
+2005 mm
+2.006e-3 km
+1-2.5
+1 2 1/2
+1/30"
+      </textarea>
+    </div>
+    <div class="flex-col">
+      Result of parsing:
+      <textarea id="asNumber" class="txt-disabled" readonly>Press "Parse" to populate me!</textarea>
+    </div>
+    <div class="flex-col">
+      Re-formatted (to 1/32"):
+      <textarea id="reFormatted" class="txt-disabled" readonly></textarea>
+    </div>
+  </div>
+  <button onclick="btnParse()">Parse</button>
+
+  <p/>PS: Blank lines are skipped. Invalid input parses to NaN.
+
+  <script>
+  let formatter;
+  window.onload = function () {
+    formatter = format.FT.to.FT.IN.FRAC(32);
+  }
+  function btnParse() {
+    const src = document.getElementById("toParse").value;
+    let asNum = "", reFmt = "";
+    src.split("\n").forEach(function (line) {
+      if (line.match(/^ *$/)) {
+        asNum += "\n";
+        reFmt += "\n";
+        return;
+      }
+      const val = parse.F(line);
+      asNum += val + "\n";
+      reFmt += ((val && formatter(val)) || "") + "\n";
+    });
+    document.getElementById("asNumber").value = asNum;
+    document.getElementById("reFormatted").value = reFmt;
+  }
+  </script>
+</body>
+</html>
