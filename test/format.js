@@ -1,7 +1,8 @@
-let should = require('chai').should();
+/* let should = */ require('chai').should();
 let footinch = require('../index'), format = footinch.format;
 
 describe('#format:IMPERIAL', function () {
+  // eslint-disable-next-line no-unused-vars
   let xx = format.FT.to.FT.DEC(2);
   const cases = {
     "xx(12.123456)" : "12.12 ft",

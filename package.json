@@ -4,7 +4,8 @@
   "description": "A minimalistic parser for imperial lengths - feet and inch. Does metric too.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha",
+    "lint": "./node_modules/.bin/eslint ."
   },
   "repository": {
     "type": "git",

@@ -5,7 +5,7 @@ let footinch = require('../index'), format = footinch.format;
 // OPTION B - get only the parser:
 // let format = require('../lib/format');
 
-let xx = format.FT.to.FT.DEC(2);
+let xx = format.FT.to.FT.DEC(2); // eslint-disable-line no-unused-vars
 [
   "xx(12.123456)",
   "format.FT.to.FT.IN.DEC(3)(12 + 2.12345/12)",

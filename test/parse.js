@@ -1,4 +1,4 @@
-let should = require('chai').should();
+/* let should = */ require('chai').should();
 let footinch = require('../index');
 // let parseF = footinch.parseF;
 // let parseM = footinch.parseM;
@@ -35,7 +35,7 @@ const allCases = {
     '1e+2cm'        : 1,
     '1e2 qm'        : NaN
   }
-}
+};
 
 const fmArr = ['F', 'M'];
 
