@@ -6,7 +6,10 @@ describe('#format:IMPERIAL', function () {
   let xx = format.FT.to.FT.DEC(2);
   const cases = {
     "xx(12.123456)" : "12.12 ft",
-    "format.FT.to.FT.DEC(2, ' feet')(12.5)" : "12.50 feet",
+    "format.FT.to.FT.DEC(3, ' feet')(12.5)" : "12.5 feet",
+    "format.FT.to.FT.DEC(3, ' feet')(12.56789)" : "12.568 feet",
+    "format.M.to.M(3, ' meters')(12.0)" : "12 meters",
+    "format.M.to.M(3)(12.456789)" : "12.457 m",
     "format.FT.to.FT.IN.DEC(3)(12 + 2.12345/12)" : "12' 2.123\"",
     "format.FT.to.FT.IN.FRAC(8)(12 + (2 + 5/8)/12)" : "12' 2 5/8\"",
     "format.FT.to.FT.IN.FRAC(8)(12 + (2 + 21/32)/12)" : "12' 2 5/8\"",
