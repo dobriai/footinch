@@ -14,7 +14,10 @@ let xx = format.FT.to.FT.DEC(2); // eslint-disable-line no-unused-vars
   "format.FT.to.FT.IN.FRAC(8)(12 + (2 + 22/32)/12)",
   "format.FT.to.FT.IN.FRAC(8)(12 + (2 + 23/32)/12)",
   "format.FT.to.FT.IN.FRAC(8)(-1*(12 + (2 + 23/32)/12))",
-  "format.FT.to.FT.IN.FRAC(8, [' ft ', ' in'])(-1*(12 + (2 + 23/32)/12))"
+  "format.FT.to.FT.IN.FRAC(8, [' ft ', ' in'])(-1*(12 + (2 + 23/32)/12))",
+  "format.FT.to.FT.IN.DEC(3)(+0.999999)",
+  "format.FT.to.FT.IN.DEC(5)(+9.999999)",
+  "format.FT.to.FT.IN.DEC(5)(-9.9999999)"
 ].forEach(function (str) {
   console.log(str + " --> " + eval(str));
 });

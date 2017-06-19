@@ -16,7 +16,13 @@ describe('#format:IMPERIAL', function () {
     "format.FT.to.FT.IN.FRAC(8)(12 + (2 + 22/32)/12)" : "12' 2 3/4\"",
     "format.FT.to.FT.IN.FRAC(8)(12 + (2 + 23/32)/12)" : "12' 2 3/4\"",
     "format.FT.to.FT.IN.FRAC(8)(-1*(12 + (2 + 23/32)/12))" : "-12' 2 3/4\"",
-    "format.FT.to.FT.IN.FRAC(8, [' ft ', ' in'])(-1*(12 + (2 + 23/32)/12))" : "-12 ft 2 3/4 in"
+    "format.FT.to.FT.IN.FRAC(8, [' ft ', ' in'])(-1*(12 + (2 + 23/32)/12))" : "-12 ft 2 3/4 in",
+    "format.FT.to.FT.IN.DEC(5)(+9.9999996)" : "10' 0\"",
+    "format.FT.to.FT.IN.DEC(5)(-9.9999996)" : "-10' 0\"",
+    "format.FT.to.FT.IN.DEC(5)(+9.999999)" : "9' 11.99999\"",
+    "format.FT.to.FT.IN.DEC(5)(-9.999999)" : "-9' 11.99999\"",
+    "format.FT.to.FT.IN.DEC(5)(+0.9999996)" : "1' 0\"",
+    "format.FT.to.FT.IN.DEC(5)(-0.9999996)" : "-1' 0\"",
   };
 
   Object.keys(cases).forEach(function (key) {
