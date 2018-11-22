@@ -25,7 +25,7 @@
   }
   textarea {
     resize: none;
-    height: 30em;
+    height: 35em;
     width: 100%;
     margin: 0px;
   }
@@ -53,6 +53,24 @@ garbage
 1-2.5
 1 2 1/2
 1/30"
+// Epsilon:
+7.999999999
+7.499999999
+-7.999999999
+-7.499999999
+-0 1
+ -1
+ -0 1
+ +0 1
+// Zeros:
+0
+ -0
+ +0
+// Empty line:
+
+// Spaces
+   
+// The end!
       </textarea>
     </div>
     <div class="flex-col">
@@ -77,14 +95,14 @@ garbage
     const src = document.getElementById("toParse").value;
     let asNum = "", reFmt = "";
     src.split("\n").forEach(function (line) {
-      if (line.match(/^ *$/)) {
+      if (line.match(/^ *(#|\/\/)/)) { // Comment lines
         asNum += "\n";
         reFmt += "\n";
         return;
       }
       const val = parse.F(line);
       asNum += val + "\n";
-      reFmt += ((val && formatter(val)) || "") + "\n";
+      reFmt += formatter(val) + "\n";
     });
     document.getElementById("asNumber").value = asNum;
     document.getElementById("reFormatted").value = reFmt;

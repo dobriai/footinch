@@ -58,6 +58,6 @@ Naturally, one can do the whole formatting in a single expression, if the format
 format.FT.to.FT.IN.DEC(3)(12 + 2.12345/12)
 ```
 
-# TODO
+## Quick live demo
 
-This is work in progress, at the moment. There is a lot of unfinished functionality. Sorry about that! Will finish it off soon, I hope.
+Open the file `./misc/demo-html.html` in a browser and mess around!
