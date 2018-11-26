@@ -23,6 +23,10 @@ describe('#format:IMPERIAL', function () {
     "format.FT.to.FT.IN.DEC(5)(-9.999999)" : "-9' 11.99999\"",
     "format.FT.to.FT.IN.DEC(5)(+0.9999996)" : "1' 0\"",
     "format.FT.to.FT.IN.DEC(5)(-0.9999996)" : "-1' 0\"",
+    "format.FT.to.FT.IN.FRAC(32)(7.999999999)" : "8' 0\"",
+    "format.FT.to.FT.IN.FRAC(32)(-7.999999999)" : "-8' 0\"",
+    "format.FT.to.FT.IN.FRAC(32)(7.499999999)" : "7' 6\"",
+    "format.FT.to.FT.IN.FRAC(32)(-7.499999999)" : "-7' 6\"",
   };
 
   Object.keys(cases).forEach(function (key) {
@@ -30,6 +34,23 @@ describe('#format:IMPERIAL', function () {
     const data = cases[key];
     it(key + ' --> ' + data, function() {
       eval(key).should.equal(data);
+    });
+  });
+});
+
+describe('#format:BAD_INPUT', function () {
+  const cases = [
+    "format.FT.to.FT.DEC(2)('garbage')",
+    "format.FT.to.FT.DEC(3, ' feet')(null)",
+    "format.M.to.M(3)(undefined)",
+    "format.FT.to.FT.IN.FRAC(8)(NaN)",
+    "format.FT.to.FT.IN.DEC(5)('')",
+  ];
+
+  cases.forEach(function (key) {
+    // console.log(str + " --> " + eval(str));
+    it(key + ' --> throws', function() {
+      (function () { eval(key) }).should.throw();
     });
   });
 });
