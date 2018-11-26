@@ -102,7 +102,12 @@ garbage
       }
       const val = parse.F(line);
       asNum += val + "\n";
-      reFmt += formatter(val) + "\n";
+      try {
+        reFmt += formatter(val) + "\n";
+      }
+      catch {
+        reFmt += "<format exception>\n"
+      }
     });
     document.getElementById("asNumber").value = asNum;
     document.getElementById("reFormatted").value = reFmt;
