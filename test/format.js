@@ -50,7 +50,7 @@ describe('#format:BAD_INPUT', function () {
   cases.forEach(function (key) {
     // console.log(str + " --> " + eval(str));
     it(key + ' --> throws', function() {
-      (function () { eval(key) }).should.throw();
+      (function () { eval(key); }).should.throw();
     });
   });
 });
