@@ -1,6 +1,6 @@
 {
   "name": "footinch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A minimalistic parser for imperial lengths - feet and inch. Does metric too.",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   "homepage": "https://github.com/dobriai/footinch#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^3.19.0",
+    "eslint": ">=4.18.2",
     "mocha": "^3.3.0"
   }
 }
