@@ -21,7 +21,7 @@
     "units"
   ],
   "author": "Ivan Dobrianov",
-  "license": "(ISC OR MIT OR GPL-3.0)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dobriai/footinch/issues"
   },
